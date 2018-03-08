@@ -1,6 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */
+// List with all the cards
 const cards = [{
         name: 'diamond',
         class: 'card',
@@ -83,37 +81,40 @@ const cards = [{
     }
 ];
 
-
-// const deck = document.getElementsByClassName('deck');
-// let listCards = `${shuffle(cards).map(card => `<li class="${card.cardType}">`)}`;
-
 function loadGame() {
+    // Shuffle the cards
     shuffle(cards);
+
     const deck = document.querySelector('.deck');
+    // Display the cards on the page
     for (let card in cards) {
         const cardHtml = `<li class="${cards[card].class}"><i class="${cards[card].cardType}"></i></li>`;
         deck.innerHTML += cardHtml;
     }
 
 };
-loadGame();
 
+// Loading the game 
+window.onload = loadGame();
 
+// Restart button
+function restart() {
+    const resetBtn = document.querySelector('.restart');
+    resetBtn.addEventListener('click', () => {
+        // Shuffle the cards
+        shuffle(cards);
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// function dispalyCards() {
-//  const deck = document.getElementsByClassName('deck');
-//  shruffle(cards);
-//  for (let i = 0; i <= cards.length; i++) {
-//      deck.appendChild
-//  };
-// }
+        const deck = document.querySelector('.deck');
+        // Clear current cards
+        deck.innerHTML = '';
+        // Display the cards on the page
+        for (let card in cards) {
+            const cardHtml = `<li class="${cards[card].class}"><i class="${cards[card].cardType}"></i></li>`;
+            deck.innerHTML += cardHtml;
+        }
+    })
+};
+restart();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -129,10 +130,24 @@ function shuffle(array) {
     }
 
     return array;
-}
+};
+/*
 
+if (click)
+   addClass show, open
+       if (class = class)
+         addClass match
+       else
+         removeClass show, open
 
-
+*/
+function click() {
+    const card = document.querySelectorAll('.card');
+    for (let i = 0; i < card.length; i++) {
+        card[i].addEventListener('click', () => { card[i].className += ' show open' });
+    }
+};
+click();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
