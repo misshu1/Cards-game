@@ -96,6 +96,8 @@ function loadGame() {
 
 // Loading the game 
 window.onload = loadGame();
+click();
+restart();
 
 // Restart button
 function restart() {
@@ -114,7 +116,7 @@ function restart() {
         }
     })
 };
-restart();
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -134,20 +136,25 @@ function shuffle(array) {
 /*
 
 if (click)
-   addClass show, open
-       if (class = class)
-         addClass match
-       else
-         removeClass show, open
+addClass show, open
+   if (class = class)
+     addClass match
+   else
+     removeClass show, open
 
 */
+
+
 function click() {
-    const card = document.querySelectorAll('.card');
-    for (let i = 0; i < card.length; i++) {
-        card[i].addEventListener('click', () => { card[i].className += ' show open' });
-    }
+    const deck = document.querySelector('.deck');
+    deck.addEventListener('click', () => {
+        if (event.target.tagName === "LI") {
+            event.target.classList.add('show', 'open');
+        }
+    });
+
 };
-click();
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
