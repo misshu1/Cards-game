@@ -86,28 +86,23 @@ var deck = document.querySelector('.deck');
 function loadGame() {
     // Shuffle the cards
     shuffle(cards);
-
-
     // Display the cards on the page
     for (let card in cards) {
         const cardHtml = `<li class="${cards[card].class} ${cards[card].cardType}"></li>`;
         deck.innerHTML += cardHtml;
     }
-
 };
+
 
 // Loading the game 
 window.onload = loadGame();
 click();
-restart();
-//openCards();
 
 
 // Restart button
 function restart() {
     // Shuffle the cards
     shuffle(cards);
-
     // Clear current cards
     deck.innerHTML = '';
     // Display the cards on the page
@@ -135,52 +130,42 @@ function shuffle(array) {
 };
 
 
-
+// Click event function
 function click() {
-    deck.addEventListener('click', () => {
+    deck.addEventListener('click', (event) => {
         if (event.target.tagName === "LI") {
-            dimension = openCardsArray.length;
-            if (openCardsArray[0] === openCardsArray[1]) {
-                // Display the selected card on click
-                openCardsArray.push(event.target.classList.add('show', 'open'));
+            const dimension = openCardsArray.length;
+            // Reveal card on click
+            event.target.classList.add('show', 'open');
+            // Push the selected cards to the openCardsArray
+            openCardsArray.push(event.target);
+            if (dimension === 1) {
+                // Compare the cards to see if they match
+                if (openCardsArray[0].classList.value === openCardsArray[1].classList.value) {
+                    match();
+                } else {
+                    unmatch();
+                }
             }
         }
-    });
+    })
 };
 
-// function match() {
-//     openCardsArray[0].classList.add("match");
-//     openCardsArray[1].classList.add("match");
-//     openCardsArray[0].classList.remove("show", "open");
-//     openCardsArray[1].classList.remove("show", "open");
-//     openCardsArray = [];
-// };
 
-// function unmatch() {
-//     openCardsArray[0].classList.remove("show", "open");
-//     openCardsArray[1].classList.remove("show", "open");
-//     openCardsArray = [];
-// }
+function match() {
+    openCardsArray[0].classList.add("match");
+    openCardsArray[1].classList.add("match");
+    openCardsArray[0].classList.remove("show", "open");
+    openCardsArray[1].classList.remove("show", "open");
+    openCardsArray = [];
+};
 
 
-// function openCards() {
-//     deck.addEventListener('click', () => {
-//         if (event.target.tagName === "LI") {
-//             // Compare the cards to see if they match
-//             const dimension = openCardsArray.length;
-//             if ((dimension === 2) && (openCardsArray[0] === openCardsArray[1])) {
-//                 // Push the selected card class to openCardsArray
-//                 openCardsArray.push(event.target.getAttribute('class'));
-//                 match();
-//             } else {
-//                 unmatch();
-//             }
-//         }
-//     });
-// };
-
-
-
+function unmatch() {
+    openCardsArray[0].classList.remove("show", "open");
+    openCardsArray[1].classList.remove("show", "open");
+    openCardsArray = [];
+};
 
 
 /*
