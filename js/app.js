@@ -80,15 +80,17 @@ const cards = [{
         cardType: 'fa fa-bomb'
     }
 ];
+var openCardsArray = [];
+var deck = document.querySelector('.deck');
 
 function loadGame() {
     // Shuffle the cards
     shuffle(cards);
 
-    const deck = document.querySelector('.deck');
+
     // Display the cards on the page
     for (let card in cards) {
-        const cardHtml = `<li class="${cards[card].class}"><i class="${cards[card].cardType}"></i></li>`;
+        const cardHtml = `<li class="${cards[card].class} ${cards[card].cardType}"></li>`;
         deck.innerHTML += cardHtml;
     }
 
@@ -98,23 +100,21 @@ function loadGame() {
 window.onload = loadGame();
 click();
 restart();
+//openCards();
+
 
 // Restart button
 function restart() {
-    const resetBtn = document.querySelector('.restart');
-    resetBtn.addEventListener('click', () => {
-        // Shuffle the cards
-        shuffle(cards);
+    // Shuffle the cards
+    shuffle(cards);
 
-        const deck = document.querySelector('.deck');
-        // Clear current cards
-        deck.innerHTML = '';
-        // Display the cards on the page
-        for (let card in cards) {
-            const cardHtml = `<li class="${cards[card].class}"><i class="${cards[card].cardType}"></i></li>`;
-            deck.innerHTML += cardHtml;
-        }
-    })
+    // Clear current cards
+    deck.innerHTML = '';
+    // Display the cards on the page
+    for (let card in cards) {
+        const cardHtml = `<li class="${cards[card].class} ${cards[card].cardType}"></li>`;
+        deck.innerHTML += cardHtml;
+    }
 };
 
 
@@ -133,27 +133,55 @@ function shuffle(array) {
 
     return array;
 };
-/*
 
-if (click)
-addClass show, open
-   if (class = class)
-     addClass match
-   else
-     removeClass show, open
-
-*/
 
 
 function click() {
-    const deck = document.querySelector('.deck');
     deck.addEventListener('click', () => {
         if (event.target.tagName === "LI") {
-            event.target.classList.add('show', 'open');
+            dimension = openCardsArray.length;
+            if (openCardsArray[0] === openCardsArray[1]) {
+                // Display the selected card on click
+                openCardsArray.push(event.target.classList.add('show', 'open'));
+            }
         }
     });
-
 };
+
+// function match() {
+//     openCardsArray[0].classList.add("match");
+//     openCardsArray[1].classList.add("match");
+//     openCardsArray[0].classList.remove("show", "open");
+//     openCardsArray[1].classList.remove("show", "open");
+//     openCardsArray = [];
+// };
+
+// function unmatch() {
+//     openCardsArray[0].classList.remove("show", "open");
+//     openCardsArray[1].classList.remove("show", "open");
+//     openCardsArray = [];
+// }
+
+
+// function openCards() {
+//     deck.addEventListener('click', () => {
+//         if (event.target.tagName === "LI") {
+//             // Compare the cards to see if they match
+//             const dimension = openCardsArray.length;
+//             if ((dimension === 2) && (openCardsArray[0] === openCardsArray[1])) {
+//                 // Push the selected card class to openCardsArray
+//                 openCardsArray.push(event.target.getAttribute('class'));
+//                 match();
+//             } else {
+//                 unmatch();
+//             }
+//         }
+//     });
+// };
+
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
