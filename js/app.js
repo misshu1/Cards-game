@@ -80,8 +80,12 @@ const cards = [{
         cardType: 'fa fa-bomb'
     }
 ];
+
+
+// Global variables
 var openCardsArray = [];
 var deck = document.querySelector('.deck');
+
 
 function loadGame() {
     // Shuffle the cards
@@ -132,19 +136,23 @@ function shuffle(array) {
 
 // Click event function
 function click() {
-    deck.addEventListener('click', (event) => {
+    deck.addEventListener('click', event => {
         if (event.target.tagName === "LI") {
             const dimension = openCardsArray.length;
-            // Reveal card on click
-            event.target.classList.add('show', 'open');
-            // Push the selected cards to the openCardsArray
+            //  Set the maximum of 2 cards revealed, before compared
+            if (dimension < 2) {
+                // Reveal card on click
+                event.target.classList.add('show', 'open');
+            };
+            // Push the selected cards to openCardsArray
             openCardsArray.push(event.target);
             if (dimension === 1) {
                 // Compare the cards to see if they match
                 if (openCardsArray[0].classList.value === openCardsArray[1].classList.value) {
                     match();
                 } else {
-                    unmatch();
+                    // Extended visibility for unmatch cards
+                    setTimeout(unmatch, 500);
                 }
             }
         }
@@ -166,6 +174,11 @@ function unmatch() {
     openCardsArray[1].classList.remove("show", "open");
     openCardsArray = [];
 };
+
+/* 
+for looop, css class to unmatch function 
+initial scale 1.1
+*/
 
 
 /*
