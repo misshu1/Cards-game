@@ -85,6 +85,9 @@ const cards = [{
 // Global variables
 var openCardsArray = [];
 var deck = document.querySelector('.deck');
+var moves = document.querySelector('.moves');
+var finish = document.querySelector('.finish');
+var count = 0;
 
 
 function loadGame() {
@@ -108,7 +111,10 @@ function restart() {
     // Shuffle the cards
     shuffle(cards);
     // Clear current cards
+    moves.innerText = '0';
     deck.innerHTML = '';
+    finish.innerHTML = '';
+    count = 0;
     // Display the cards on the page
     for (let card in cards) {
         const cardHtml = `<li class="${cards[card].class} ${cards[card].cardType}"></li>`;
@@ -150,9 +156,12 @@ function click() {
                 // Compare the cards to see if they match
                 if (openCardsArray[0].classList.value === openCardsArray[1].classList.value) {
                     match();
+                    movesCount(2);
+                    setTimeout(congrats, 200);
                 } else {
                     // Extended visibility for unmatch cards
                     setTimeout(unmatch, 500);
+                    movesCount(1);
                 }
             }
         }
@@ -175,6 +184,44 @@ function unmatch() {
     openCardsArray = [];
 };
 
+// Count the number of moves
+function movesCount(num) {
+    count = count + num;
+    moves.innerText = count;
+};
+
+
+// Congratulations message when all cards are revealed
+function congrats() {
+    const match = document.getElementsByClassName('match');
+    if (match.length == 16) {
+        const popup =
+            `<div class="congrats">
+               <h1>Well done! Congratulations!</h1>
+               <p>Completed in<span class="moves"></span> moves.</p>
+               <p>Time: </p>
+               <div class="button" onclick="restart()">Play again!</div>
+            </div>`;
+        finish.innerHTML = popup;
+    }
+};
+
+
+// Time counter 
+//<div id="timer"></div>
+//<div id ="stop_timer" onclick="clearInterval(timerVar)">Stop time</div>
+
+var timerVar = setInterval(countTimer, 1000);
+var totalSeconds = 0;
+
+function countTimer() {
+    ++totalSeconds;
+    var hour = Math.floor(totalSeconds / 3600);
+    var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+    var seconds = totalSeconds - (hour * 3600 + minute * 60);
+
+    document.getElementById("time").innerHTML = hour + ":" + minute + ":" + seconds;
+}
 /* 
 for looop, css class to unmatch function 
 initial scale 1.1

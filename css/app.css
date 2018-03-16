@@ -17,7 +17,9 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png');
+    background: #ffffff url('../img/background.jpg') no-repeat;
+    background-position: center;
+    background-size: cover;
     /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
@@ -29,9 +31,40 @@ body {
     flex-direction: column;
 }
 
+.congrats {
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 70%;
+    height: 85%;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    padding: 2em;
+}
+
+.congrats .button {
+    right: 0;
+    left: 0;
+    bottom: 5em;
+    margin: auto;
+    position: absolute;
+    font-size: 1.2em;
+    color: springgreen;
+    background: #2f2f2f;
+    padding: 0.7em;
+    width: fit-content;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 h1 {
     font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+    font-weight: 700;
 }
 
 
@@ -43,7 +76,7 @@ h1 {
     transform: rotateY(180deg);
     width: 660px;
     min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    background: linear-gradient(160deg, #77171f 0%, #845c61 100%);
     padding: 32px;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
@@ -58,7 +91,7 @@ h1 {
     height: 125px;
     width: 125px;
     background: #2e3d49;
-    font-size: 0;
+    font-size: 12px;
     color: #ffffff;
     border-radius: 8px;
     cursor: pointer;
@@ -72,7 +105,7 @@ h1 {
     transform: rotateY(180deg);
     transform-style: preserve-3d;
     transition: 0.3s;
-    background: #02b3e4;
+    background: #2792dd;
     cursor: default;
 }
 
@@ -86,7 +119,7 @@ h1 {
     transform-style: preserve-3d;
     transition: 0.3s;
     cursor: default;
-    background: #02ccba;
+    background: #09e589;
     font-size: 33px;
     pointer-events: none;
 }
@@ -98,7 +131,7 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 500px;
     margin-bottom: 10px;
 }
 
