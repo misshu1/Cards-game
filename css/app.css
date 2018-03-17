@@ -185,4 +185,8 @@ h1 {
         align-items: center;
         margin: 2vw;
     }
+    .congrats .button {
+        width: 70%;
+        margin: 1em;
+    }
 }
