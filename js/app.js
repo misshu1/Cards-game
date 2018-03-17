@@ -233,7 +233,7 @@ function countTimer() {
 // Congratulations message when all cards are revealed
 function congrats() {
     const match = document.getElementsByClassName('match');
-    if (match.length == 4) {
+    if (match.length == 16) {
         const popUp =
             `<div class="congrats">
                <h1>Well done!</h1>
