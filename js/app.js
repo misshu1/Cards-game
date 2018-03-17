@@ -83,12 +83,14 @@ const cards = [{
 
 
 // Global variables
-var openCardsArray = [];
-var deck = document.querySelector('.deck');
-var moves = document.querySelector('.moves');
-var finish = document.querySelector('.finish');
-var count = 0;
-
+let openCardsArray = [];
+let deck = document.querySelector('.deck');
+let moves = document.getElementById('moves');
+let finish = document.querySelector('.finish');
+let time = document.getElementById('time');
+let minutes = 0;
+let seconds = 0;
+let count = 0;
 
 function loadGame() {
     // Shuffle the cards
@@ -114,7 +116,12 @@ function restart() {
     moves.innerText = '0';
     deck.innerHTML = '';
     finish.innerHTML = '';
+    time.innerText = '';
     count = 0;
+    seconds = 0;
+    minutes = 0;
+
+    clearInterval(startTime);
     // Display the cards on the page
     for (let card in cards) {
         const cardHtml = `<li class="${cards[card].class} ${cards[card].cardType}"></li>`;
@@ -169,6 +176,7 @@ function click() {
 };
 
 
+// If cards match do this
 function match() {
     openCardsArray[0].classList.add("match");
     openCardsArray[1].classList.add("match");
@@ -178,63 +186,73 @@ function match() {
 };
 
 
+// If cards don't match do this
 function unmatch() {
     openCardsArray[0].classList.remove("show", "open");
     openCardsArray[1].classList.remove("show", "open");
     openCardsArray = [];
 };
 
+
 // Count the number of moves
 function movesCount(num) {
     count = count + num;
     moves.innerText = count;
-};
-
-
-// Congratulations message when all cards are revealed
-function congrats() {
-    const match = document.getElementsByClassName('match');
-    if (match.length == 16) {
-        const popup =
-            `<div class="congrats">
-               <h1>Well done! Congratulations!</h1>
-               <p>Completed in<span class="moves"></span> moves.</p>
-               <p>Time: </p>
-               <div class="button" onclick="restart()">Play again!</div>
-            </div>`;
-        finish.innerHTML = popup;
+    if (count == 1) {
+        countTimer();
+    }
+    if (count <= 25) {
+        document.getElementById('first').style.color = 'yellow';
+        document.getElementById('second').style.color = 'yellow';
+        document.getElementById('third').style.color = 'yellow';
+    } else if (count > 25 && count < 35) {
+        document.getElementById('first').style.color = 'yellow';
+        document.getElementById('second').style.color = 'yellow';
+        document.getElementById('third').style.color = 'white';
+    } else if (count >= 35) {
+        document.getElementById('first').style.color = 'yellow';
+        document.getElementById('second').style.color = 'white';
+        document.getElementById('third').style.color = 'white';
     }
 };
 
 
 // Time counter 
-//<div id="timer"></div>
-//<div id ="stop_timer" onclick="clearInterval(timerVar)">Stop time</div>
-
-var timerVar = setInterval(countTimer, 1000);
-var totalSeconds = 0;
-
 function countTimer() {
-    ++totalSeconds;
-    var hour = Math.floor(totalSeconds / 3600);
-    var minute = Math.floor((totalSeconds - hour * 3600) / 60);
-    var seconds = totalSeconds - (hour * 3600 + minute * 60);
-
-    document.getElementById("time").innerHTML = hour + ":" + minute + ":" + seconds;
+    startTime = setInterval(() => {
+        time.innerText = minutes + ' : ' + seconds;
+        seconds++;
+        if (seconds == 60) {
+            minutes++;
+            seconds = 0
+        }
+    }, 1000);
 }
-/* 
-for looop, css class to unmatch function 
-initial scale 1.1
-*/
 
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+// Congratulations message when all cards are revealed
+function congrats() {
+    const match = document.getElementsByClassName('match');
+    if (match.length == 4) {
+        const popUp =
+            `<div class="congrats">
+               <h1>Well done!</h1>
+               <p>Completed in <span id="movesResult"></span> moves.</p>
+               <p>Time: <span id="timeResult"></span>
+               <ul class="stars">
+                   <li><i id="firstResult" class="fa fa-star"></i></li>
+                   <li><i id="secondResult" class="fa fa-star"></i></li>
+                   <li><i id="thirdResult" class="fa fa-star"></i></li>
+               </ul>
+               </p>
+               <div class="button" onclick="restart()">Play again!</div>
+            </div>`;
+        finish.innerHTML = popUp;
+        clearInterval(startTime);
+        document.getElementById('firstResult').style.color = document.getElementById('first').style.color;
+        document.getElementById('secondResult').style.color = document.getElementById('second').style.color;
+        document.getElementById('thirdResult').style.color = document.getElementById('third').style.color;
+        document.getElementById('movesResult').innerText = moves.innerText;
+        document.getElementById('timeResult').innerText = time.innerText;
+    }
+};

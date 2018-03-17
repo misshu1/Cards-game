@@ -14,20 +14,18 @@
 
     <div class="container">
         <header>
-            <h1>Matching Game</h1>
+            <h1>Good luck and have fun!</h1>
         </header>
 
         <section class="score-panel">
             <ul class="stars">
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
+                <li><i id="first" class="fa fa-star"></i></li>
+                <li><i id="second" class="fa fa-star"></i></li>
+                <li><i id="third" class="fa fa-star"></i></li>
             </ul>
-            <span class="moves"></span> Moves
+            <span><span id="moves"></span> Moves</span>
             <span id="time"></span>
-            <div class="restart" onclick="restart()">
-                <i class="fa fa-repeat"></i>
-            </div>
+            <div class="restart" onclick="restart()">Restart Game</div>
         </section>
         <ul class="deck"></ul>
         <div class="finish"></div>
