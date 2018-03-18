@@ -88,13 +88,17 @@ let deck = document.querySelector('.deck');
 let moves = document.getElementById('moves');
 let finish = document.querySelector('.finish');
 let time = document.getElementById('time');
+let firstStar = document.getElementById('first');
+let secondStar = document.getElementById('second');
+let thirdStar = document.getElementById('third');
 let minutes = 0;
-let seconds = 0;
+let seconds = 1;
 let count = 0;
 
 function loadGame() {
     // Shuffle the cards
     shuffle(cards);
+    time.innerText = '0 : 0';
     // Display the cards on the page
     for (let card in cards) {
         const cardHtml = `<li class="${cards[card].class} ${cards[card].cardType}"></li>`;
@@ -116,11 +120,13 @@ function restart() {
     moves.innerText = '0';
     deck.innerHTML = '';
     finish.innerHTML = '';
-    time.innerText = '';
+    firstStar.style.color = '';
+    secondStar.style.color = '';
+    thirdStar.style.color = '';
+    time.innerText = '0 : 0';
     count = 0;
-    seconds = 0;
+    seconds = 1;
     minutes = 0;
-
     clearInterval(startTime);
     // Display the cards on the page
     for (let card in cards) {
@@ -196,23 +202,23 @@ function unmatch() {
 
 // Count the number of moves
 function movesCount(num) {
-    count = count + num;
+    count += num;
     moves.innerText = count;
     if (count == 1) {
         countTimer();
     }
     if (count <= 25) {
-        document.getElementById('first').style.color = 'yellow';
-        document.getElementById('second').style.color = 'yellow';
-        document.getElementById('third').style.color = 'yellow';
+        firstStar.style.color = 'yellow';
+        secondStar.style.color = 'yellow';
+        thirdStar.style.color = 'yellow';
     } else if (count > 25 && count < 35) {
-        document.getElementById('first').style.color = 'yellow';
-        document.getElementById('second').style.color = 'yellow';
-        document.getElementById('third').style.color = 'white';
+        firstStar.style.color = 'yellow';
+        secondStar.style.color = 'yellow';
+        thirdStar.style.color = 'white';
     } else if (count >= 35) {
-        document.getElementById('first').style.color = 'yellow';
-        document.getElementById('second').style.color = 'white';
-        document.getElementById('third').style.color = 'white';
+        firstStar.style.color = 'yellow';
+        secondStar.style.color = 'white';
+        thirdStar.style.color = 'white';
     }
 };
 
@@ -224,7 +230,7 @@ function countTimer() {
         seconds++;
         if (seconds == 60) {
             minutes++;
-            seconds = 0
+            seconds = 0;
         }
     }, 1000);
 }
@@ -249,9 +255,9 @@ function congrats() {
             </div>`;
         finish.innerHTML = popUp;
         clearInterval(startTime);
-        document.getElementById('firstResult').style.color = document.getElementById('first').style.color;
-        document.getElementById('secondResult').style.color = document.getElementById('second').style.color;
-        document.getElementById('thirdResult').style.color = document.getElementById('third').style.color;
+        document.getElementById('firstResult').style.color = firstStar.style.color;
+        document.getElementById('secondResult').style.color = secondStar.style.color;
+        document.getElementById('thirdResult').style.color = thirdStar.style.color;
         document.getElementById('movesResult').innerText = moves.innerText;
         document.getElementById('timeResult').innerText = time.innerText;
     }
