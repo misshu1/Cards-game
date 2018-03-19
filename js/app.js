@@ -124,6 +124,8 @@ function restart() {
     secondStar.style.color = '';
     thirdStar.style.color = '';
     time.innerText = '0 : 0';
+    openCardsArray = [];
+    console.log(openCardsArray);
     count = 0;
     seconds = 1;
     minutes = 0;
