@@ -1,5 +1,7 @@
 # Card Game
 
+Play the game here https://misshu1.github.io/card-game/
+
 ### Game logic
 
 The game randomly shuffles the cards. A user wins once all cards have successfully been matched.
